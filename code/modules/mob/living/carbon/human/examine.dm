@@ -16,6 +16,13 @@
 
 	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"]</EM>!")
 
+	//ACULASTATION EDIT START - EXAMINE TEXT
+	if(examine_text && !obscure_name && (real_name == name))
+		. += "[examine_text]\n*---------*"
+	else
+		. += "<span class='notice'>*---------*</span>"
+	//ACULASTATION EDIT END
+
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
 
@@ -297,9 +304,6 @@
 				msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
 			else if(!client)
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
-
-		if(HAS_TRAIT(src, TRAIT_DIGICAMO))
-			msg += "[t_He] [t_is] moving [t_his] body in an unnatural and blatantly inhuman manner.\n"
 
 	//handcuffed?
 	if(handcuffed)
